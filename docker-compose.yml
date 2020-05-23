@@ -1,5 +1,12 @@
 version: "3.7"
 services:
+  blesta:
+    image: gusdecool/blesta
+    build: ./
+    volumes:
+      - ./blesta:/app
+    ports:
+      - 7013:443
   database:
     image: mysql:5.7
     volumes:
@@ -9,13 +16,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=blesta_root
       - MYSQL_ALLOW_EMPTY_PASSWORD=no
-  blesta:
-    image: gusdecool/blesta
-    build: ./
-    volumes:
-      - ./blesta:/app
-    ports:
-      - 7013:443
+      - MYSQL_DATABASE=blesta_db
+      - MYSQL_USER=blesta_user
+      - MYSQL_PASSWORD=blesta_pass
 volumes:
   mysql_data:
     driver: local
